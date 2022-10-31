@@ -15,20 +15,58 @@
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-header pb-0">
-            <div class="row">
+              <div class="row">
                 <div class="col-md-10">
                   <h6>MANAGE RESIDENTS</h6>
                 </div>
                 <div class="col-md-2">
-                    <select id="filter_status" class="form-control" style="appearance: button;">
-                         <option value="">FILTER STATUS</option>
-                         <option value="PENDING">PENDING</option>
-                         <option value="APPROVED">APPROVED</option>
-                         <option value="DECLINED">DECLINED</option>
-                         <option value="DEACTIVATED">DEACTIVATED</option>
-                    </select>
+                    <button class="btn-success btn btn-sm" id="create_record">NEW RESIDENT</button>
                 </div>
-                </div>
+              </div>
+              <div class="row ">
+                  <div class="col-md col-4 mt-2">
+                      <select id="filter_voter" class="form-control" style="appearance: button;">
+                          <option value="">FILTER VOTER?</option>
+                          <option value="YES">YES</option>
+                          <option value="NO">NO</option>
+                      </select>
+                  </div>
+                  <div class="col-md col-4 mt-2">
+                      <select id="filter_record" class="form-control" style="appearance: button;">
+                          <option value="">FILTER WITH RECORD?</option>
+                          <option value="YES">YES</option>
+                          <option value="NO">NO</option>
+                      </select>
+                  </div>
+                  <div class="col-md col-4 mt-2">
+                      <select id="filter_employed" class="form-control" style="appearance: button;">
+                          <option value="">FILTER EMPLOYED?</option>
+                          <option value="YES">YES</option>
+                          <option value="NO">NO</option>
+                      </select>
+                  </div>
+                  <div class="col-md col-4 mt-2">
+                      <select id="filter_student" class="form-control" style="appearance: button;">
+                          <option value="">FILTER STUDENT?</option>
+                          <option value="YES">YES</option>
+                          <option value="NO">NO</option>
+                      </select>
+                  </div>
+                  <div class="col-md col-4 mt-2">
+                      <select id="filter_pwd" class="form-control" style="appearance: button;">
+                          <option value="">FILTER PWD?</option>
+                          <option value="YES">YES</option>
+                          <option value="NO">NO</option>
+                      </select>
+                  </div>
+                  <div class="col-md col-4 mt-2">
+                      <select id="filter_sr" class="form-control" style="appearance: button;">
+                          <option value="">FILTER SENIOR CITIZEN?</option>
+                          <option value="YES">YES</option>
+                          <option value="NO">NO</option>
+                      </select>
+                  </div>
+              </div>
            
           </div>
           <div class="card-body ">
@@ -37,12 +75,19 @@
                 <thead>
                   <tr>
                     <th class="text-secondary opacity-7"></th>
-                    <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">ID IMAGE</th>
                     <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">Name</th>
-                    <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">Email</th>
-                    <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">Contact Number</th>
                     <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">Address</th>
-                    <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">Status</th>
+                    <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">Contact Number</th>
+                    <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">Birth Date</th>
+                    <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">Birth Place</th>
+                    <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">Civil Status</th>
+                    <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">Gender</th>
+                    <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">Is Voter?</th>
+                    <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">With Record?</th>
+                    <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">Is Employed?</th>
+                    <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">Is Student?</th>
+                    <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">Is PWD?</th>
+                    <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">Senior Citizen?</th>
                     <th class="text-uppercase text-xxs text-dark font-weight-bolder opacity-7">Register At</th>
                   </tr>
                 </thead>
@@ -59,25 +104,16 @@
                         </div>
                       </td>
                       <td>
-                            <div class="d-flex px-2 py-1">
-                                <div class="d-flex flex-column justify-content-center">
-                                    <a href="/resident/img/id/{{$resident->id_image}}" target="_blank">
-                                        <img style="vertical-align: bottom;"  height="100" width="100" src="{{URL::asset('/resident/img/id/'.$resident->id_image)}}" />
-                                    </a>
-                                </div>
-                            </div>
-                      </td>
-                      <td>
                         <div class="d-flex px-2 py-1">
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{$resident->first_name ?? ''}} {{$resident->last_name ?? ''}}  ({{$resident->middle_name ?? 'n/a'}})</h6>
+                            <h6 class="mb-0 text-sm">{{$resident->name ?? ''}}</h6>
                           </div>
                         </div>
                       </td>
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{$resident->user->email ?? ''}}</h6>
+                            <h6 class="mb-0 text-sm">{{$resident->address ?? ''}}</h6>
                           </div>
                         </div>
                       </td>
@@ -91,23 +127,59 @@
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{$resident->address ?? ''}}</h6>
+                            <h6 class="mb-0 text-sm">{{$resident->birthdate ?? ''}}</h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">{{$resident->birthplace ?? ''}}</h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">{{$resident->civil_status ?? ''}}</h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex px-2 py-1">
+                          <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">{{$resident->gender ?? ''}}</h6>
                           </div>
                         </div>
                       </td>
                       <td  class="align-middle text-center text-sm">
-                          <span class="badge badge-sm 
-                            @if($resident->status == 'PENDING')
-                              bg-warning
-                            @elseif($resident->status == 'APPROVED')
-                              bg-success
-                            @elseif($resident->status == 'DECLINED')
-                              bg-warning
-                            @elseif($resident->status == 'DEACTIVATED')
-                              bg-danger
-                            @endif">
-                           
-                            {{$resident->status}}
+                          <span class="badge badge-sm {{$resident->isVoter == true ? 'bg-success':'bg-danger'}}">
+                            {{$resident->isVoter == true ? 'YES':'NO'}}
+                          </span>
+                      </td>
+                      <td  class="align-middle text-center text-sm">
+                          <span class="badge badge-sm {{$resident->isRecord == true ? 'bg-success':'bg-danger'}}">
+                            {{$resident->isRecord == true ? 'YES':'NO'}}
+                          </span>
+                      </td>
+                      <td  class="align-middle text-center text-sm">
+                          <span class="badge badge-sm {{$resident->isEmployed == true ? 'bg-success':'bg-danger'}}">
+                            {{$resident->isEmployed == true ? 'YES':'NO'}}
+                          </span>
+                      </td>
+                      <td  class="align-middle text-center text-sm">
+                          <span class="badge badge-sm {{$resident->isStudent == true ? 'bg-success':'bg-danger'}}">
+                            {{$resident->isStudent == true ? 'YES':'NO'}}
+                          </span>
+                      </td>
+                      <td  class="align-middle text-center text-sm">
+                          <span class="badge badge-sm {{$resident->isPWD == true ? 'bg-success':'bg-danger'}}">
+                            {{$resident->isPWD == true ? 'YES':'NO'}}
+                          </span>
+                      </td>
+                      <td  class="align-middle text-center text-sm">
+                          <span class="badge badge-sm {{$resident->isSr == true ? 'bg-success':'bg-danger'}}">
+                            {{$resident->isSr == true ? 'YES':'NO'}}
                           </span>
                       </td>
                       <td>
@@ -155,45 +227,12 @@
         <form method="post" id="myForm" class="contact-form">
             @csrf
             <div class="card-body">
+               
                 <div class="form-group">
-                    <label class="control-label text-uppercase" >ID Image </label> 
-                    <input type="file" name="id_image" id="id_image1" class="form-control" accept="image/*" />
+                    <label class="control-label text-uppercase" >Name <span class="text-danger">*</span></label>
+                    <input type="text" name="name" id="name" class="form-control" />
                     <span class="invalid-feedback" role="alert">
-                        <strong id="error-id_image1"></strong>
-                    </span>
-                    <label class="control-label text-uppercase" >Current Image: <a href="" id="current_image_id" class="text-warning" target="_blank"></a></label>
-                </div>
-                <div class="form-group">
-                    <label class="control-label text-uppercase" >First Name <span class="text-danger">*</span></label>
-                    <input type="text" name="first_name" id="first_name" class="form-control" />
-                    <span class="invalid-feedback" role="alert">
-                        <strong id="error-first_name"></strong>
-                    </span>
-                </div>
-                <div class="form-group">
-                    <label class="control-label text-uppercase" >Middle Name</label>
-                    <input type="text" name="middle_name" id="middle_name" class="form-control" />
-                    <span class="invalid-feedback" role="alert">
-                        <strong id="error-middle_name"></strong>
-                    </span>
-                </div>
-                <div class="form-group">
-                    <label class="control-label text-uppercase" >Last Name <span class="text-danger">*</span></label>
-                    <input type="text" name="last_name" id="last_name" class="form-control" />
-                    <span class="invalid-feedback" role="alert">
-                        <strong id="error-last_name"></strong>
-                    </span>
-                </div>
-                <div class="form-group">
-                    <label class="control-label text-uppercase" >Email <span class="text-danger">*</span></label>
-                    <input type="text" name="email" id="email" class="form-control" readonly/>
-                   
-                </div>
-                <div class="form-group">
-                    <label class="control-label text-uppercase" >Contact Number <span class="text-danger">*</span></label>
-                    <input type="number" name="contact_number" id="contact_number" class="form-control" />
-                    <span class="invalid-feedback" role="alert">
-                        <strong id="error-contact_number"></strong>
+                        <strong id="error-name"></strong>
                     </span>
                 </div>
                 <div class="form-group">
@@ -204,16 +243,86 @@
                     </span>
                 </div>
                 <div class="form-group">
-                    <label class="control-label text-uppercase" >Status <span class="text-danger">*</span></label>
-                    <select name="status" id="status" class="form-control" style="appearance: searchfield;">
-                        <option value="PENDING">PENDING</option>
-                        <option value="APPROVED">APPROVED</option>
-                        <option value="DECLINED">DECLINED</option>
-                        <option value="DEACTIVATED">DEACTIVATED</option>
+                    <label class="control-label text-uppercase" >Contact Number <span class="text-danger">*</span></label>
+                    <input type="number" name="contact_number" id="contact_number" class="form-control" />
+                    <span class="invalid-feedback" role="alert">
+                        <strong id="error-contact_number"></strong>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label text-uppercase" >Birth Date <span class="text-danger">*</span></label>
+                    <input type="date" name="birthdate" id="birthdate" class="form-control" />
+                    <span class="invalid-feedback" role="alert">
+                        <strong id="error-birthdate"></strong>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label text-uppercase" >Birth Place <span class="text-danger">*</span></label>
+                    <input type="text" name="birthplace" id="birthplace" class="form-control" />
+                    <span class="invalid-feedback" role="alert">
+                        <strong id="error-birthplace"></strong>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label text-uppercase" >Civil Status <span class="text-danger">*</span></label>
+                    <select name="civil_status" id="civil_status" class="form-control" style="appearance: searchfield;">
+                        <option value="SINGLE">SINGLE</option>
+                        <option value="MARRIED">MARRIED</option>
+                        <option value="WIDOWED">WIDOWED</option>
                     </select>
                 </div>
-                <div class="card-footer text-center">
+                <div class="form-group">
+                    <label class="control-label text-uppercase" >Gender <span class="text-danger">*</span></label>
+                    <select name="gender" id="gender" class="form-control" style="appearance: searchfield;">
+                        <option value="MALE">MALE</option>
+                        <option value="FEMALE">FEMALE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label text-uppercase" >Is Voter? <span class="text-danger">*</span></label>
+                    <select name="isVoter" id="isVoter" class="form-control" style="appearance: searchfield;">
+                        <option value="1">YES</option>
+                        <option value="0">NO</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label text-uppercase" >WITH RECORD? <span class="text-danger">*</span></label>
+                    <select name="isRecord" id="isRecord" class="form-control" style="appearance: searchfield;">
+                        <option value="0">NO</option>
+                        <option value="1">YES</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label text-uppercase" >Is Employed? <span class="text-danger">*</span></label>
+                    <select name="isEmployed" id="isEmployed" class="form-control" style="appearance: searchfield;">
+                        <option value="1">YES</option>
+                        <option value="0">NO</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label text-uppercase" >Is Student? <span class="text-danger">*</span></label>
+                    <select name="isStudent" id="isStudent" class="form-control" style="appearance: searchfield;">
+                        <option value="0">NO</option>
+                        <option value="1">YES</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label text-uppercase" >Is PWD? <span class="text-danger">*</span></label>
+                    <select name="isPWD" id="isPWD" class="form-control" style="appearance: searchfield;">
+                        <option value="0">NO</option>
+                        <option value="1">YES</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label text-uppercase" >Is Senior? <span class="text-danger">*</span></label>
+                    <select name="isSr" id="isSr" class="form-control" style="appearance: searchfield;">
+                        <option value="0">NO</option>
+                        <option value="1">YES</option>
+                    </select>
+                </div>
+                <div class="card-footer text-center m-4">
                     <input type="submit" name="action_button" id="action_button" class="text-uppercase btn-wd btn btn-primary text-uppercase" value="Submit" />
+                    <input type="button" name="remove_button" id="remove_button" class="text-uppercase btn-wd btn btn-danger text-uppercase" value="Remove" />
                 </div>
             </div>
             
@@ -228,16 +337,33 @@
 <script>
   $(document).ready(function () {
         var table = $('.table').DataTable({
-            'columnDefs': [{ 'orderable': false, 'targets': [0,1] }],
+            'columnDefs': [{ 'orderable': false, 'targets': [0] }],
         });
-        $('#filter_status').on('change', function () {
-            table.columns(6).search( this.value ).draw();
+        $('#filter_voter').on('change', function () {
+            table.columns(8).search( this.value ).draw();
+        });
+        $('#filter_record').on('change', function () {
+            table.columns(9).search( this.value ).draw();
+        });
+        $('#filter_employed').on('change', function () {
+            table.columns(10).search( this.value ).draw();
+        });
+        $('#filter_student').on('change', function () {
+            table.columns(11).search( this.value ).draw();
+        });
+        $('#filter_pwd').on('change', function () {
+            table.columns(12).search( this.value ).draw();
+        });
+        $('#filter_sr').on('change', function () {
+            table.columns(13).search( this.value ).draw();
         });
   });
 
   var id = null;
+  var action = null;
   $(document).on('click', '.view', function(){
       id = $(this).attr('id');
+      action = 'EDIT';
 
       $.ajax({
           url :"/admin/residents/"+id+"/edit",
@@ -252,13 +378,7 @@
                   if(key == $('#'+key).attr('id')){
                       $('#'+key).val(value)
                   }
-                  if(key == 'id_image'){
-                    $('#current_image_id').attr('href','/resident/img/id/'+value)
-                    $('#current_image_id').text(value)
-                  }
               })
-              $('#email').val(data.email);
-              $('#status').val(data.status);
           }
       })
 
@@ -271,35 +391,49 @@
       }
   });
 
+  $(document).on('click', '#create_record', function(){
+      action = 'ADD';
+      var fixedPlugin = document.querySelector('.fixed-plugin');
+
+      if (!fixedPlugin.classList.contains('show')) {
+          fixedPlugin.classList.add('show');
+      } else {
+          fixedPlugin.classList.remove('show');
+      }
+      $('#myForm')[0].reset();
+  });
+
+
   $('#myForm').on('submit', function(event){
     event.preventDefault();
     $('.form-control').removeClass('is-invalid')
+    var url = "/admin/residents";
+    var method = "POST";
+
+    if(action == 'EDIT'){
+          url = "/admin/residents/" + id;
+          method = "PUT";
+    }
 
     $.ajax({
-        url: '/admin/residents/'+id,
-        method:'POST',
-        data:  new FormData(this),
-        contentType: false,
-        cache: false,
-        processData: false,
-
+        url: url,
+        method: method,
+        data: $(this).serialize(),
         dataType:"json",
+
         beforeSend:function(){
             $("#action_button").attr("disabled", true);
             $("#action_button").val("Submitting");
         },
         success:function(data){
             $("#action_button").attr("disabled", false);
-
+            $("#action_button").val("Submit");
+            
             if(data.errors){
                 $.each(data.errors, function(key,value){
                     if(key == $('#'+key).attr('id')){
                         $('#'+key).addClass('is-invalid')
                         $('#error-'+key).text(value)
-                    }
-                    if(key == 'id_image'){
-                        $('#id_image1').addClass('is-invalid')
-                        $('#error-id_image1').text(value)
                     }
                 })
             }
@@ -321,6 +455,62 @@
                 });
             }
            
+        }
+    });
+  });
+
+  $(document).on('click', '#remove_button', function(){
+    $.confirm({
+        title: 'Confirmation',
+        content: 'You really want to remove this record?',
+        type: 'red',
+        buttons: {
+            confirm: {
+                text: 'confirm',
+                btnClass: 'btn-blue',
+                keys: ['enter', 'shift'],
+                action: function(){
+                    return $.ajax({
+                        url:"/admin/residents/"+id,
+                        method:'DELETE',
+                        data: {
+                            _token: '{!! csrf_token() !!}',
+                        },
+                        dataType:"json",
+                        beforeSend:function(){
+                          $("#remove_button").attr("disabled", true);
+                          $("#remove_button").val("Removing");
+                        },
+                        success:function(data){
+                          $("#remove_button").attr("disabled", false);
+                          $("#remove_button").val("Remove");
+                            if(data.success){
+                              $.confirm({
+                                title: 'Confirmation',
+                                content: data.success,
+                                type: 'green',
+                                buttons: {
+                                        confirm: {
+                                            text: 'confirm',
+                                            btnClass: 'btn-blue',
+                                            keys: ['enter', 'shift'],
+                                            action: function(){
+                                                location.reload();
+                                            }
+                                        },
+                                        
+                                    }
+                                });
+                            }
+                        }
+                    })
+                }
+            },
+            cancel:  {
+                text: 'cancel',
+                btnClass: 'btn-red',
+                keys: ['enter', 'shift'],
+            }
         }
     });
   });
